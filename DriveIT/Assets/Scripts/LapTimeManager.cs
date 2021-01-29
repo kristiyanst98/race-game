@@ -1,0 +1,54 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class LapTimeManager : MonoBehaviour
+{
+    public static int minuteCount;
+    public static int secondCount;
+    public static float milliCount;
+    public static string milliDisplay;
+
+    public GameObject minuteBox;
+    public GameObject secondBox;
+    public GameObject milliBox;
+
+    public static float rawTime;
+
+
+    void Update()
+    {
+        milliCount += Time.deltaTime * 10;
+        rawTime += Time.deltaTime;
+        milliDisplay = milliCount.ToString("F0");
+        milliBox.GetComponent<Text>().text = "" + milliDisplay;
+
+        if (milliCount >= 9)
+        {
+            milliCount = 0;
+            secondCount++;
+        }
+        if (secondCount <= 9)
+        {
+            secondBox.GetComponent<Text>().text = "0" + secondCount+".";
+        }
+        else
+        {
+            secondBox.GetComponent<Text>().text = "" + secondCount + ".";
+        }
+        if (secondCount >= 60)
+        {
+            secondCount = 0;
+            minuteCount++;
+        }
+        if (minuteCount <= 9)
+        {
+            minuteBox.GetComponent<Text>().text = "0" + minuteCount + ":";
+        }
+        else
+        {
+            minuteBox.GetComponent<Text>().text = "" + minuteCount + ":";
+        }
+    }
+}
